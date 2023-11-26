@@ -1,85 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Login Form</title>
-    <script>
-        let regform = document.getElementById("reg-form");
-const dobin = document.getElementById('dob');
-
-dobin.addEventListener('input', (event) => {
-    const dob = new Date(event.target.value);
-    const today = new Date();
-    const age = today.getFullYear() - dob.getFullYear();
-
-    if (age < 18 || age > 60) {
-        dobin.setCustomValidity('Please enter a valid date of birth between ages 18 to 60.');
-    }
-    else{
-        dobin.setCustomValidity('');
-    }
-});
-
-const getdetails = ()=>{
-    let det = localStorage.getItem("user-details");
-    if(det){
-        det = JSON.parse(det);
-    }
-    else{
-        det = [];
-    } 
-    return det;
-}
-let data = getdetails();
-
-const showdetails =()=>{
-    const det = getdetails();
-    const tableentries = det.map((entry)=>{
-        const nameCell = `<td>${entry.name}</td>`;
-        const emailCell = `<td>${entry.email}</td>`;
-        const passCell = `<td>${entry.pw}</td>`;
-        const dobCell = `<td>${entry.db}</td>`;
-        const acceptTermsCell = `<td>${entry.ch}</td>`;
-        const row = `<tr>${nameCell} ${emailCell} ${passCell} ${dobCell} ${acceptTermsCell}</tr>`;
-        return row;
-    }).join("\n");
-
-    const tab = 
-    `<table class="table-auto w-full">
-        <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Password</th>
-            <th>dob</th>
-            <th>accepted terms?</th>
-        </tr>${tableentries}
-    </table>`;
-
-    let fdet = document.getElementById("user-details");
-    fdet.innerHTML = tab;
-}
-const saveform = (event)=>{
-    event.preventDefault();
-    const name = document.getElementById("name").value; 
-    const email = document.getElementById("email").value;
-    const pass = document.getElementById("password").value;
-    const dob_ = document.getElementById("dob").value;
-    const check = document.getElementById("acceptTerms").checked;
-    const entry = {
-        name,
-        email,
-        pass,
-        dob_,
-        check
-    }
-    data.push(entry);
-    localStorage.setItem("user-details",JSON.stringify(data));
-    showdetails();
-}
-
-regform.addEventListener("submit",saveform); 
-
-showdetails();
-    </script>
+    <title>login form</title>
     <style>
         body{
  background-color: rgb(235, 229, 229);
@@ -113,7 +35,7 @@ label{
     margin-left: 6px;
     margin-right: 82px;
     margin-bottom: 14px;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 input{
     height: 30px;
@@ -121,11 +43,14 @@ input{
     margin-bottom: 30px;
 }
 
-#name,#email{
+#name{
     margin-left: 30px;
 }
+#email{
+    margin-left: 32px;
+}
 #dob{
-    margin-left: -21px;
+    margin-left: -18px;
 }
 #check{
     margin-left: 1px;
@@ -133,7 +58,7 @@ input{
 }
 #acceptTerms{
     width: 13px;
-    margin-left: -73px;
+    margin-left: 3px;
 }
 button{
     background-color: rgb(106, 177, 106);
@@ -170,7 +95,7 @@ h2{
     align-items: center;
     margin:  10px;
     margin-bottom: 20px;
-    font-style:italic;
+    font-family: 'Roboto';
 }
 td{
     border-width: 1px;
@@ -181,7 +106,7 @@ td{
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     border-color: rgb(118, 119, 123);
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Roboto', sans-serif;
 
 }
 th{
@@ -190,6 +115,85 @@ th{
     
 }
     </style>
+    <script>
+        let regform = document.getElementById("reg-form");
+const dobin = document.getElementById('dob');
+
+dobin.addEventListener('input', (event) => {
+    const dob = new Date(event.target.value);
+    const today = new Date();
+    const age = today.getFullYear() - dob.getFullYear();
+
+    if (age > 18 && age < 55) {
+        dobin.setCustomValidity('');
+    }
+    else{
+        dobin.setCustomValidity('Date of birth should be between ages 18 and 55.');
+    }
+});
+
+const getdetails = ()=>{
+    let det = localStorage.getItem("userdet");
+    if(det){
+        det = JSON.parse(det);
+    }
+    else{
+        det = [];
+    } 
+    return det;
+}
+let data = getdetails();
+
+const showdetails =()=>{
+    const det = getdetails();
+    const tableentries = det.map((entry)=>{
+        const nameCell = `<td>${entry.name}</td>`;
+        const emailCell = `<td>${entry.email}</td>`;
+        const passCell = `<td>${entry.pass}</td>`;
+        const dobCell = `<td>${entry.dob_}</td>`;
+        const acceptTermsCell = `<td>${entry.check}</td>`;
+        const row = `<tr>${nameCell} ${emailCell} ${passCell} ${dobCell} ${acceptTermsCell}</tr>`;
+        return row;
+    }).join("\n");
+
+    const tab = 
+    `<table class="table-auto w-full">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>dob</th>
+            <th>accepted terms?</th>
+        </tr>${tableentries}
+    </table>`;
+
+    let fdet = document.getElementById("userdet");
+    fdet.innerHTML = tab;
+}
+const saveform = (event)=>{
+    event.preventDefault();
+    const name = document.getElementById("name").value; 
+    const email = document.getElementById("email").value;
+    const pass = document.getElementById("password").value;
+    const dob_ = document.getElementById("dob").value;
+    const check = document.getElementById("acceptTerms").checked;
+    const entry = {
+        name,
+        email,
+        pass,
+        dob_,
+        check
+    }
+    data.push(entry);
+    localStorage.setItem("userdet",JSON.stringify(data));
+    showdetails();
+}
+
+regform.addEventListener("submit",saveform); 
+
+showdetails();
+    </script>
+    
 </head>
 <body>
     <div class="container">
@@ -211,8 +215,8 @@ th{
                 <input type="date" id="dob" name="dob">
                 
                 <br>
-                <label id="check" for="acceptTerms">Accept Terms and Conditions</label>
-                <input type="checkbox" id="acceptTerms" name="acceptTerms">  
+                <input type="checkbox" id="acceptTerms" name="acceptTerms">
+                <label id="check" for="acceptTerms">Accept Terms and Conditions</label> 
                 <br>
 
                 <button id="button" type="submit">Submit</button>
@@ -228,7 +232,7 @@ th{
         <div id ="tab1"> 
             <div id = "tab2">
                 <h2 id="tab3">Entries</h2>
-                <div id="user-details">
+                <div id="userdet">
 
                 </div>
             </div>
