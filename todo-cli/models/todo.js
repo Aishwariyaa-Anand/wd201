@@ -99,6 +99,9 @@ module.exports = (sequelize, DataTypes) => {
 
       return `${this.id}. ${checkbox} ${this.title} ${dueDateString}`;
     }
+    static associate(models) {
+      // define association here
+    }
   }
   Todo.init({
     title: DataTypes.STRING,
