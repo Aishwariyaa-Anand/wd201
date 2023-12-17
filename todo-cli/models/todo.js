@@ -5,11 +5,6 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Todo extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static async addTask(params) {
       return await Todo.create(params);
     }
@@ -38,8 +33,8 @@ module.exports = (sequelize, DataTypes) => {
 
       console.log("Due Later");
       // FILL IN HERE
-      const dueLater = await Todo.dueLater();
-      const formatDueLater = dueLater
+      const dueLate = await Todo.dueLater();
+      const formatDueLater = dueLate
         .map((todo) => todo.displayableString())
         .join("\n")
         .trim();
@@ -68,12 +63,12 @@ module.exports = (sequelize, DataTypes) => {
 
     static async dueLater() {
       // FILL IN HERE TO RETURN ITEMS DUE LATER
-      const dueLater = await Todo.findAll({
+      const dueLate = await Todo.findAll({
         where: {
           dueDate: { [Op.gt]: new Date() },
         },
       });
-      return dueLater;
+      return dueLate;
     }
 
     static async markAsComplete(id) {
