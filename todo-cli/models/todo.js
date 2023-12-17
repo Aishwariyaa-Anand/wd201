@@ -97,7 +97,7 @@ module.exports = (sequelize, DataTypes) => {
         dueDateString = dueDate.toISOString().slice(0, 10);
       }
 
-      return `${this.id}. ${checkbox} ${this.title} ${dueDateString};
+      return `${this.id}. ${checkbox} ${this.title} ${dueDateString}`;
     }
   }
   Todo.init({
