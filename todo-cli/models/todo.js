@@ -6,7 +6,7 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Todo extends Model {
     static async addTask(params) {
-      return await Todo.create(params);
+      return Todo.create(params);
     }
     static async showList() {
       console.log("My Todo list \n");
