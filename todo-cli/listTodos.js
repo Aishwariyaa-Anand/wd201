@@ -1,5 +1,5 @@
 //  listTodos.js
-const db = require("./models/index.js");
+const db = require("./models/index");
 
 const listTodo = async () => {
   try {
