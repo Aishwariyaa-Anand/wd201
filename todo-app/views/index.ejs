@@ -4,14 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="./css/styles.css" rel="stylesheet"> 
-    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>To-Do Manager</title>
 </head>
 <body>
-    <%- include('header.ejs') %>
-    <br>
-    <h3>My Todo List</h3>
-    <%- include('todos.ejs') %>
-    <br>
-    <%- include('footer.ejs') %>
+    <div class="grid grid-cols-6">
+        <div class="col-start-3 col-span-2">
+            <%- include('header.ejs') %>
+            <br>
+            <%- include('todos.ejs') %>
+        </div>
+    </div>
+    
 </body>
 </html>
