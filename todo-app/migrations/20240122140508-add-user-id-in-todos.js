@@ -4,10 +4,11 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
     const tableInfo = await queryInterface.describeTable('Todos');
-    if ((!tableInfo.userId) {
+    if (!tableInfo.userId) {
       await queryInterface.addColumn('Todos', 'userId', {
         type: Sequelize.DataTypes.INTEGER
       });
+    }
 
     await queryInterface.addConstraint('Todos', {
       fields: ['userId'],
