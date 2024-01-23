@@ -10,23 +10,24 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      /**Todo.belongsTo(models.User, {
+      Todo.belongsTo(models.User, {
         foreignKey: 'userId',
-      });**/
+      });
     }
 
-    static addTodo({ title, dueDate }) {
-      return this.create({ title: title, dueDate: dueDate, completed: false });
+    static addTodo({ title, dueDate, userId }) {
+      return this.create({ title: title, dueDate: dueDate, completed: false, userId });
     }
 
     static getTodos() {
       return this.findAll(); 
     }
 
-    static async remove(id) {
+    static async remove(id, userId) {
       return this.destroy({
         where: {
           id,
+          userId,
         },
       });
     }
@@ -36,37 +37,41 @@ module.exports = (sequelize, DataTypes) => {
       return this.update({ completed: st });
     }
 
-    static async overdue() {
+    static async overdue(userId) {
       return await Todo.findAll({
         where: {
           dueDate: { [Op.lt]: new Date(), },
           completed: false,
+          userId,
         },
       })
     }
 
-    static async dueToday() {
+    static async dueToday(userId) {
       return await Todo.findAll({
         where: {
           dueDate: { [Op.eq]: new Date(), },
           completed: false,
+          userId,
         }
       })
     }
 
-    static async dueLater() {
+    static async dueLater(userId) {
       return await Todo.findAll({
         where: {
           dueDate: { [Op.gt]: new Date(), },
           completed: false,
+          userId,
         }
       })
     }
     
-    static async completed() {
+    static async completed(userId) {
       return this.findAll({
         where: {
           completed: true,
+          userId,
         }
       })
     }
