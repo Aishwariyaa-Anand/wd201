@@ -75,6 +75,10 @@ passport.deserializeUser((id, done) => {
     })
 });
 
+app.get("/", connectEnsureLogin.ensureLoggedIn(), async (request, response) => {
+  response.redirect("/todos");
+});
+
 app.get("/", async (request, response) => {
   response.render("index", {
     csrfToken: request.csrfToken(),
@@ -184,7 +188,7 @@ app.post("/users", async (request, response) => {
   // response.send(todos)
 });*/
 
-app.get("/")
+//app.get("/")
 
 app.get("/todos/:id", connectEnsureLogin.ensureLoggedIn(), async function (request, response) {
   try {
