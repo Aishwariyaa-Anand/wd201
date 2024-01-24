@@ -6,7 +6,6 @@ const bodyParser = require("body-parser");
 var cookieparser = require("cookie-parser");
 const path = require("path");
 app.set("views", path.join(__dirname, "views"));
-
 const passport = require('passport');
 const connectEnsureLogin = require('connect-ensure-login');
 const session = require('express-session');
@@ -34,9 +33,10 @@ app.use(session({
 }));
 
 app.use(flash());
+
 app.use(function(request, response, next) {
-    response.locals.messages = request.flash();
-    next();
+  response.locals.messages = request.flash();
+  next();
 });
 
 
@@ -75,15 +75,15 @@ passport.deserializeUser((id, done) => {
     })
 });
 
-app.get("/", async (request, response) => {
+app.get("/", connectEnsureLogin.ensureLoggedIn(), async (request, response) => {
   response.render("index", {
     csrfToken: request.csrfToken(),
   });
 });
 
 app.get("/todos", connectEnsureLogin.ensureLoggedIn(), async (request, response) => {
-  const allTodos = await Todo.getTodos(loggedUser);
   const loggedUser = request.user.id;
+  const allTodos = await Todo.getTodos(loggedUser);
   const overdue = await Todo.overdue(loggedUser);
   const dueToday = await Todo.dueToday(loggedUser);
   const dueLater = await Todo.dueLater(loggedUser);
@@ -148,7 +148,7 @@ app.post("/users", async (request, response) => {
    }
 });
 
-/* app.get("/todos", connectEnsureLogin.ensureLoggedIn(), async function (_request, response) {
+/*app.get("/todos", connectEnsureLogin.ensureLoggedIn(), async function (_request, response) {
   console.log("Processing list of all Todos ...");
   const allTodos = await Todo.getTodos();
   const overdue = await Todo.overdue();
@@ -184,7 +184,7 @@ app.post("/users", async (request, response) => {
   // response.send(todos)
 });*/
 
-//app.get("/")
+app.get("/")
 
 app.get("/todos/:id", connectEnsureLogin.ensureLoggedIn(), async function (request, response) {
   try {
