@@ -5,6 +5,7 @@ const app = express();
 const bodyParser = require("body-parser");
 var cookieparser = require("cookie-parser");
 const path = require("path");
+app.set("views", path.join(__dirname, "views"));
 
 const passport = require('passport');
 const connectEnsureLogin = require('connect-ensure-login');
@@ -13,8 +14,6 @@ const LocalStrategy = require('passport-local');
 
 const bcrypt = require('bcrypt');
 const saltRounds= 10;
-
-app.set("views", path.join(__dirname, "views"));
 
 app.use(bodyParser.json());
 
