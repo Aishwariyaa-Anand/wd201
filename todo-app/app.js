@@ -149,7 +149,7 @@ app.post("/users", async (request, response) => {
    }
 });
 
-app.get("/todos", connectEnsureLogin.ensureLoggedIn(), async function (_request, response) {
+/* app.get("/todos", connectEnsureLogin.ensureLoggedIn(), async function (_request, response) {
   console.log("Processing list of all Todos ...");
   const allTodos = await Todo.getTodos();
   const overdue = await Todo.overdue();
@@ -175,15 +175,15 @@ app.get("/todos", connectEnsureLogin.ensureLoggedIn(), async function (_request,
     })
   }
   // FILL IN YOUR CODE HERE
-  /*try {
+  try {
     const todos = await Todo.findAll();
     return response.json(todos);
   } catch (error) {
     console.log(error);
     return response.status(500).json({ error: "Internal Server Error" });
   }
-  // response.send(todos)*/
-});
+  // response.send(todos)
+});*/
 
 app.get("/")
 
