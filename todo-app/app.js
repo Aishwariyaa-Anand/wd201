@@ -34,10 +34,9 @@ app.use(session({
 }));
 
 app.use(flash());
-
 app.use(function(request, response, next) {
-  response.locals.messages = request.flash();
-  next();
+    response.locals.messages = request.flash();
+    next();
 });
 
 
