@@ -18,7 +18,7 @@ const saltRounds= 10;
 app.use(bodyParser.json());
 
 const { Todo, User} = require("./models");
-
+const todo = require("./models/todo");
 app.use(express.static(path.join(__dirname,'public')));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieparser("shh! some secret string"));
@@ -73,10 +73,6 @@ passport.deserializeUser((id, done) => {
     .catch(error => {
       done(error, null)
     })
-});
-
-app.get("/", connectEnsureLogin.ensureLoggedIn(), async (request, response) => {
-  response.redirect("/todos");
 });
 
 app.get("/", async (request, response) => {
