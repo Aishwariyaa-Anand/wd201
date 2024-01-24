@@ -76,9 +76,15 @@ passport.deserializeUser((id, done) => {
 });
 
 app.get("/", async (request, response) => {
-  response.render("index", {
-    csrfToken: request.csrfToken(),
-  });
+  if (request.isAuthenticated()) {
+    // Redirect to /todos if the user is logged in
+    response.redirect("/todos");
+  } else {
+    // Render the index page with the CSRF token
+    response.render("index", {
+      csrfToken: request.csrfToken(),
+    });
+  }
 });
 
 app.get("/todos", connectEnsureLogin.ensureLoggedIn(), async (request, response) => {
